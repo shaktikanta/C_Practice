@@ -9,23 +9,23 @@ typedef struct cQueue{
 } CQ;
 
 int isFull(CQ *cq){
-    if(cq->front == cq->rear+1 % cq->capacity){
-        return 0;
+    if(cq->front == (cq->rear+1) % cq->capacity){
+        return 1;
     }
-    return 1;
+    return 0;
 }
 
 int isEmpty(CQ *cq){
     if(cq->front == -1){
-        return 0;
+        return 1;
     }
-    return 1;
+    return 0;
 }
 
 void enQueue(CQ * cq, int data){
     if(!isFull(cq)){
         cq->arr[cq->rear] = data;
-        cq->rear = cq->rear+1 % cq->capacity;
+        cq->rear = (cq->rear+1) % cq->capacity;
         if(cq->front == -1)
             cq->front = cq->rear;
     } else {
@@ -34,11 +34,12 @@ void enQueue(CQ * cq, int data){
 }
 
 void deQueue(CQ *cq){
+    printf("Deleted: %d\n", cq->arr[cq->front]);
     if(!isEmpty(cq)){
         if(cq->front == cq->rear)
             cq->rear = cq->front = -1;
         else
-            cq->front = cq->front + 1 % cq->capacity;
+            cq->front = (cq->front + 1) % cq->capacity;
     } else {
         printf("Queue is empty\n");
     }
@@ -48,6 +49,8 @@ int main(){
     
     CQ C;
     C.capacity = 5;
+    C.front = C.rear = -1;
+    C.arr = (int *)malloc(sizeof(C.capacity * sizeof(int)));
 
     while(1){
         printf("What would you like to do with Queue\n");
