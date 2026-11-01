@@ -44,6 +44,15 @@ void deQueue(CQ *cq){
         printf("Queue is empty\n");
     }
 }
+void print(CQ *cq){
+    int i = cq->front;
+    while(1) {
+        printf("%d ", cq->arr[i]);
+        if(i == cq->rear)
+            break;
+        i = (i+1) %cq->capacity;
+    }
+}
 
 int main(){
     
@@ -70,9 +79,9 @@ int main(){
                 deQueue(&C);
                 break;
             case 3:
-                // findLength();
+                print(&C);
             case 4:
-                // print(&C);
+                //
 
             default:
                 break;
